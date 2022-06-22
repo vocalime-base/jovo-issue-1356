@@ -1,5 +1,4 @@
 import { BaseComponent, Component, Global } from '@jovotech/framework';
-import { StandardOutput } from '../outputs/StandardOutput';
 
 @Global()
 @Component()
@@ -9,8 +8,37 @@ export class MainComponent extends BaseComponent {
     }
 
     async LAUNCH(): Promise<void> {
-        return this.$send(StandardOutput, {
-            dialog: this.$t('launch_intent.welcome'),
+        return this.$send({
+            message: 'Welcome',
+            reprompt: 'Welcome again',
+            card: {
+                title: 'Test skill',
+                content: 'Welcome screen',
+            },
+            platforms: {
+                alexa: {
+                    nativeResponse: {
+                        response: {
+                            directives: [
+                                {
+                                    type: 'Dialog.ElicitSlot',
+                                    slotToElicit: 'business',
+                                    updatedIntent: {
+                                        name: 'SetDestinationIntent',
+                                        confirmationStatus: 'NONE',
+                                        slots: {
+                                            business: {
+                                                name: 'business',
+                                                confirmationStatus: 'NONE',
+                                            },
+                                        },
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                },
+            },
         });
     }
 }
