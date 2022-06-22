@@ -1,0 +1,19 @@
+# IDE
+.idea
+
+# Dependencies
+**/**/node_modules
+
+# Docs
+docs/
+
+# Builds
+dist/
+bundle/
+bundle.zip
+
+# Secrets
+**/**/.env
+
+# Jovo
+build/**/platform.alexa/.ask
